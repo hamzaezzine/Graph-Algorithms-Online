@@ -1,0 +1,77 @@
+:root {
+    --light-gray-color :  #eaeaea;
+    --steel-blue-color : #667f92;
+    --orange-color : #e56139;
+    --dark-blue-color : #312d4d;
+}
+
+
+/* Header */
+header{
+    height: 180px;
+    background-color: #f8f5f5;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+
+}
+
+header img{
+    width: 350px;
+    margin-left: 100px;
+}
+
+/* Container */
+
+.container{
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.container .graph-input {
+    margin-bottom: 20px;
+}
+
+.container label {
+    display: block;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.container .algorithm-select{
+    margin-top: 20px;
+}
+.container textarea{
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+    padding: 5px;
+}
+
+.container select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.container button {
+    padding: 10px 20px;
+    background-color: var(--orange-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.container button:hover {
+    background-color: #953d22;
+    
+}
+

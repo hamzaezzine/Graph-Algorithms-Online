@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Algorithms Online</title>
+
+    <link rel="stylesheet" href="stylesheets/normalize.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico"> 
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="logo">
+    </header>
+
+    <div class="container">
+        <h1>Entrer le graphe:</h1>
+        <div class="graph-input">
+            <label for="graphInput">Graphe :</label>
+            <textarea id="graphInput" placeholder="Saisissez le graphe"></textarea>
+
+            <label for="algorithmSelect" class="algorithm-select">Choix de l'algorithme :</label>
+            <select name="algorithmSelect" id="algorithmSelect">
+                <option value="parcoursLargeur">Parcours en largeur</option>
+                <option value="parcoursProfondeur">Parcours en profondeur</option>
+                <option value="coloriageGlouton">Algorithme glouton de coloriage d’un graphe</option>
+                <option value="welshPowell">Algorithme de Welsh-Powell pour colorier un graphe</option>
+                <option value="prim">Algorithme de Prim</option>
+                <option value="kruskal">Algorithme de Kruskal</option>
+                <option value="bellmanFord">Algorithme de Bellman-Ford</option>
+                <option value="bellman">Algorithme de Bellman</option>
+                <option value="dijkstra">Algorithme de Dijkstra</option>
+                <option value="fordFulkerson">Algorithme de Ford-Fulkerson</option>
+            </select>
+            <button onclick="processGraph()">Soumettre</button>
+        </div>
+    
+    </div>
+    
+    <script src="scripts/app.js"></script>
+</body>
+</html>
+
+
+
