@@ -35,9 +35,24 @@
                 <option value="dijkstra">Algorithme de Dijkstra</option>
                 <option value="fordFulkerson">Algorithme de Ford-Fulkerson</option>
             </select>
-            <button onclick="processGraph()">Soumettre</button>
+            <div class="btns">
+                <button onclick="processGraph()" class="btn1">Valider</button>
+                <button onclick="voirExemple()" class="btn2">Voir un exemple</button>
+            </div>
         </div>
-    
+    </div>
+
+    <div class="popup" id="popup1">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn"  onclick="voirExemple()">&times;</div>
+            <h2>Graph Exemple</h2>
+            <div class="imgs">
+                <img src="images/graph-exemple.png" alt="">
+                <img src="images/graph-exemple-json.png" alt="">
+            </div>
+            
+        </div>
     </div>
     
     <script src="scripts/app.js"></script>

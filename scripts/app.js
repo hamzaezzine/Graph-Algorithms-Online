@@ -15,11 +15,21 @@ function parcoursLargeur(G, d) {
         var neighbors = G[s];
         
         if (neighbors) {
-            for (var i = 0; i < neighbors.length; i++) {
-                var v = neighbors[i];
-                
-                if (!visited.includes(v) && !to_visit.includes(v)) {
-                    to_visit.push(v);
+            if (Array.isArray(neighbors)) {
+                for (var i = 0; i < neighbors.length; i++) {
+                    var v = neighbors[i];
+                    
+                    if (!visited.includes(v) && !to_visit.includes(v)) {
+                        to_visit.push(v);
+                    }
+                }
+            } else {
+                for (var v in neighbors) {
+                    if (!visited.includes(v) && !to_visit.includes(v)) {
+                        if (neighbors.hasOwnProperty(v)) {
+                            to_visit.push(v);
+                        }
+                    }
                 }
             }
         }
@@ -40,7 +50,6 @@ function parcoursProfondeur(G, d, visited) {
         }
     }
 }
-
 
 
 function processGraph() {
@@ -89,4 +98,9 @@ function processGraph() {
     else {
         alert("Algorithme sélectionné non pris en charge.");
     }
+}
+
+
+function voirExemple(){
+    document.getElementById("popup1").classList.toggle("active");
 }
