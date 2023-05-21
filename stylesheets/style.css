@@ -153,6 +153,38 @@ header img{
     transform: translate(-50%,-50%) scale(1);
 }
 
+/* result container */
+.resultContainer {
+    margin-top: 30px;
+    border: 1px solid var(--dark-blue-color);
+    border-radius: 5px;
+    
+}
+
+.resultContainer h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--dark-blue-color);
+    padding: 20px;
+}
+
+.resultContainer ul {
+    list-style: none;
+    padding: 20px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.resultContainer li {
+    margin-bottom: 5px;
+    font-size: 1.8rem;
+}
+
 
 
 
