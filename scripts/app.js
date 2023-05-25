@@ -55,44 +55,7 @@ function parcoursProfondeur(G, d, visited) {
 
 
 // Algorithme glouton de coloriage d'un graphe:
-function welshPowell(G) {
-    var degrees = {};
-    for (var node in G) {
-        if (G.hasOwnProperty(node)) {
-            degrees[node] = G[node].length;
-        }
-    }
 
-    var sortedNodes = Object.keys(degrees).sort(function (a, b) {
-        return degrees[b] - degrees[a];
-    });
-
-    var colors = {};
-    var colorCount = 1;
-
-    for (var i = 0; i < sortedNodes.length; i++) {
-        var node = sortedNodes[i];
-        if (!colors[node]) {
-            colors[node] = colorCount;
-
-            for (var j = i + 1; j < sortedNodes.length; j++) {
-                var adjacent = false;
-                for (var k = 0; k < G[sortedNodes[j]].length; k++) {
-                    if (G[sortedNodes[j]][k] === node) {
-                        adjacent = true;
-                        break;
-                    }
-                }
-
-                if (!adjacent) {
-                    colors[sortedNodes[j]] = colorCount;
-                }
-            }
-        colorCount++;
-        }
-    }
-    return colors;
-}
 
 
 // Algorithme de Welsh-Powell pour colorier un graphe
