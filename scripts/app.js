@@ -6,6 +6,9 @@ function parcoursLargeur(G, d) {
     while (visiter.length !== 0) {
         var s = visiter.shift();
         
+
+
+        
         if (fileSommets.includes(s)) {
             continue;
         }
