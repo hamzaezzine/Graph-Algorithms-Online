@@ -79,63 +79,62 @@ function coloriageGlouton(graph) {
 // Algorithme de Welsh-Powell pour colorier un graphe
 
 function welshPowell(graph) {
-  const vertexNames = Object.keys(graph);
-  const colored = {};
-  const vertexRates = {};
+  const nomSommets = Object.keys(graph);
+  const sommetColore = {};
+  const degreeSommet = {};
 
-  for (const vertex of vertexNames) {
-    colored[vertex] = false;
-    vertexRates[vertex] = Object.keys(graph[vertex]).length;
+  for (const sommet of nomSommets) {
+    sommetColore[sommet] = false;
+    degreeSommet[sommet] = Object.keys(graph[sommet]).length;
   }
 
-  let counter = 0;
-  let problem = false;
+  let compteur = 0;
 
-  const coloringResult = {};
+  const resultatColoriage = {};
 
-  function colorIt(vertex) {
-    counter++;
-    let biggest = "";
-    let tempRate = 0;
+  function colorer(sommet) {
+    compteur++;
+    let grande = "";
+    let degreeTemp = 0;
 
-    if (counter === 1) {
-      for (const vertex of vertexNames) {
-        vertexRates[vertex] = Object.keys(graph[vertex]).length;
+    if (compteur === 1) {
+      for (const sommet of nomSommets) {
+        degreeSommet[sommet] = Object.keys(graph[sommet]).length;
       }
     }
 
-    for (const vertex of vertexNames) {
-      if (!colored[vertex]) {
-        if (tempRate < vertexRates[vertex]) {
-          tempRate = vertexRates[vertex];
-          biggest = vertex;
+    for (const sommet of nomSommets) {
+      if (!sommetColore[sommet]) {
+        if (degreeTemp < degreeSommet[sommet]) {
+          degreeTemp = degreeSommet[sommet];
+          grande = sommet;
         }
       }
     }
 
-    let color = 1;
-    const coloredNeighbors = [];
-    for (const neighbor of vertexNames) {
-      if (graph[biggest][neighbor]) {
-        coloredNeighbors.push(coloringResult[neighbor]);
+    let coleur = 1;
+    const voisinsColores = [];
+    for (const voisin of nomSommets) {
+      if (graph[grande][voisin]) {
+        voisinsColores.push(resultatColoriage[voisin]);
       }
     }
 
-    while (coloredNeighbors.includes(color)) {
-      color++;
+    while (voisinsColores.includes(coleur)) {
+      coleur++;
     }
 
-    coloringResult[biggest] = color;
-    colored[biggest] = true;
+    resultatColoriage[grande] = coleur;
+    sommetColore[grande] = true;
 
-    if (Object.values(colored).every((i) => i)) {
-      return coloringResult;
+    if (Object.values(sommetColore).every((i) => i)) {
+      return resultatColoriage;
     }
 
-    return colorIt(vertex);
+    return colorer(sommet);
   }
 
-  return colorIt(vertexNames[0]);
+  return colorer(nomSommets[0]);
 }
 
 
