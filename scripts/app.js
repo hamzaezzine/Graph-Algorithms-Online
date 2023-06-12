@@ -48,16 +48,38 @@ function parcoursProfondeur(G, d, pileSommets) {
   }
 }
 
+//  Algorithme de coloriage glouton
 
-// TODO: Algorithme de coloriage glouton
+function coloriageGlouton(graph) {
+  const sommets = Object.keys(graph);
 
+  const resultat = {};
+
+  for (const sommet of sommets) {
+    const attribue = new Set();
+
+    for (const voisin in graph[sommet]) {
+      if (resultat[voisin]) {
+        attribue.add(resultat[voisin]);
+      }
+    }
+
+    let coleur = 1;
+    while (attribue.has(coleur)) {
+      coleur++;
+    }
+
+    resultat[sommet] = coleur;
+  }
+
+  return resultat;
+}
 
 
 // Algorithme de Welsh-Powell pour colorier un graphe
 
 function welshPowell(graph) {
   const vertexNames = Object.keys(graph);
-  const colors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const colored = {};
   const vertexRates = {};
 
@@ -91,27 +113,19 @@ function welshPowell(graph) {
       }
     }
 
-    colors[biggest] = colors[counter];
-    coloringResult[biggest] = colors[biggest];
-
-    for (const vertex of vertexNames) {
-      if (!graph[biggest][vertex] && biggest !== vertex && !colored[vertex]) {
-        let hasPathWithBiggest = false;
-        for (const neighbor of Object.keys(graph[vertex])) {
-          if (colors[neighbor] === colors[biggest]) {
-            hasPathWithBiggest = true;
-            break;
-          }
-        }
-
-        if (!hasPathWithBiggest) {
-          colors[vertex] = colors[counter];
-          coloringResult[vertex] = colors[vertex];
-          colored[vertex] = true;
-        }
+    let color = 1;
+    const coloredNeighbors = [];
+    for (const neighbor of vertexNames) {
+      if (graph[biggest][neighbor]) {
+        coloredNeighbors.push(coloringResult[neighbor]);
       }
     }
 
+    while (coloredNeighbors.includes(color)) {
+      color++;
+    }
+
+    coloringResult[biggest] = color;
     colored[biggest] = true;
 
     if (Object.values(colored).every((i) => i)) {
@@ -123,6 +137,8 @@ function welshPowell(graph) {
 
   return colorIt(vertexNames[0]);
 }
+
+
 
 // Algorithme de Prim
 function prim(graph, debutSommet) {
@@ -374,12 +390,19 @@ function processGraph() {
       "Résultat du parcours en profondeur :",
       pileSommets
     );
-  } else if (selectedAlgorithm === "welshPowell") {
-    const colorResult = welshPowell(graph);
+  } else if (selectedAlgorithm === "coloriageGlouton") {
+    const resultatColoriage = coloriageGlouton(graph);
     createResultList(
       resultContainer,
-      "Le résultat de coloriage :",
-      Object.entries(colorResult).map((entry) => `${entry[0]} - ${entry[1]}`)
+      "Le résultat de coloriage Glouton :",
+      Object.entries(resultatColoriage).map((entry) => `${entry[0]} - ${entry[1]}`)
+    );
+  } else if (selectedAlgorithm === "welshPowell") {
+    const resultatColoriage = welshPowell(graph);
+    createResultList(
+      resultContainer,
+      "Le résultat de coloriage avec Welsh-Powell :",
+      Object.entries(resultatColoriage).map((entry) => `${entry[0]} - ${entry[1]}`)
     );
   } else if (selectedAlgorithm === "prim") {
     var debutSommet = prompt(
