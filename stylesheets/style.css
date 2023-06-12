@@ -186,6 +186,22 @@ header img{
 }
 
 
+/* Header */
+footer{
+    height: 80px;
+    background-color: #f8f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+footer p{
+    font-size: 1.2rem;
+    color: var(--orange-color);
+    font-weight: 400;
+    margin: 0 30px;
+}
 
 
 
@@ -205,5 +221,10 @@ header img{
 
     .popup .content{
         height: 540px;
+    }
+
+    header img{
+        width: 230px;
+        margin-left: 40px;
     }
 }
