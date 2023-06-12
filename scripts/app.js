@@ -97,11 +97,11 @@ function welshPowell(graph) {
     let grande = "";
     let degreeTemp = 0;
 
-    if (compteur === 1) {
-      for (const sommet of nomSommets) {
-        degreeSommet[sommet] = Object.keys(graph[sommet]).length;
-      }
-    }
+    // if (compteur === 1) {
+    //   for (const sommet of nomSommets) {
+    //     degreeSommet[sommet] = Object.keys(graph[sommet]).length;
+    //   }
+    // }
 
     for (const sommet of nomSommets) {
       if (!sommetColore[sommet]) {
@@ -116,7 +116,10 @@ function welshPowell(graph) {
     const voisinsColores = [];
     for (const voisin of nomSommets) {
       if (graph[grande][voisin]) {
-        voisinsColores.push(resultatColoriage[voisin]);
+        if (resultatColoriage[voisin]) {
+          voisinsColores.push(resultatColoriage[voisin]);
+        }
+        
       }
     }
 
