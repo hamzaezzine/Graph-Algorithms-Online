@@ -75,7 +75,6 @@ function coloriageGlouton(graph) {
   return resultat;
 }
 
-
 // Algorithme de Welsh-Powell pour colorier un graphe
 
 function welshPowell(graph) {
@@ -97,12 +96,6 @@ function welshPowell(graph) {
     let grande = "";
     let degreeTemp = 0;
 
-    // if (compteur === 1) {
-    //   for (const sommet of nomSommets) {
-    //     degreeSommet[sommet] = Object.keys(graph[sommet]).length;
-    //   }
-    // }
-
     for (const sommet of nomSommets) {
       if (!sommetColore[sommet]) {
         if (degreeTemp < degreeSommet[sommet]) {
@@ -119,7 +112,6 @@ function welshPowell(graph) {
         if (resultatColoriage[voisin]) {
           voisinsColores.push(resultatColoriage[voisin]);
         }
-        
       }
     }
 
@@ -139,8 +131,6 @@ function welshPowell(graph) {
 
   return colorer(nomSommets[0]);
 }
-
-
 
 // Algorithme de Prim
 function prim(graph, debutSommet) {
@@ -166,12 +156,10 @@ function prim(graph, debutSommet) {
         }
       }
     }
-
     visiter.push(minSommet);
     arbre.push(minArete);
     aretes.push(minArete);
   }
-
   return aretes;
 }
 
@@ -227,7 +215,6 @@ function kruskal(graph) {
     var arete = aretes[i];
     var u = arete.u;
     var v = arete.v;
-
     // Vérifier si l'ajout de l'arête crée un cycle
     if (tu.trouver(u) !== tu.trouver(v)) {
       // Ajouter l'arête à l'arbre couvrant minimal
@@ -236,10 +223,10 @@ function kruskal(graph) {
       tu.union(u, v);
     }
   }
-
   return result;
 }
 
+// Algorithme de Bellman-Ford
 function bellmanFord(graph, debutSommet) {
   let sommets = Object.keys(graph).length;
 
@@ -281,13 +268,13 @@ function bellmanFord(graph, debutSommet) {
       }
     }
   }
-
   return {
     distances: distances,
     predecesseurs: predecesseurs,
   };
 }
 
+// Algorithme de Dijkstra
 function dijkstra(graph, source) {
   const sommets = Object.keys(graph);
   const distances = {};
@@ -397,14 +384,18 @@ function processGraph() {
     createResultList(
       resultContainer,
       "Le résultat de coloriage Glouton :",
-      Object.entries(resultatColoriage).map((entry) => `${entry[0]} - ${entry[1]}`)
+      Object.entries(resultatColoriage).map(
+        (entry) => `${entry[0]} - ${entry[1]}`
+      )
     );
   } else if (selectedAlgorithm === "welshPowell") {
     const resultatColoriage = welshPowell(graph);
     createResultList(
       resultContainer,
       "Le résultat de coloriage avec Welsh-Powell :",
-      Object.entries(resultatColoriage).map((entry) => `${entry[0]} - ${entry[1]}`)
+      Object.entries(resultatColoriage).map(
+        (entry) => `${entry[0]} - ${entry[1]}`
+      )
     );
   } else if (selectedAlgorithm === "prim") {
     var debutSommet = prompt(
