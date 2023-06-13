@@ -5,11 +5,9 @@ function parcoursLargeur(G, d) {
 
   while (visiter.length !== 0) {
     var s = visiter.shift();
-
     if (fileSommets.includes(s)) {
       continue;
     }
-
     fileSommets.push(s);
     var voisins = G[s];
 
@@ -22,12 +20,11 @@ function parcoursLargeur(G, d) {
             visiter.push(v);
           }
         }
-      } else {
+      } 
+      else {
         for (var v in voisins) {
           if (!fileSommets.includes(v) && !visiter.includes(v)) {
-            if (voisins.hasOwnProperty(v)) {
-              visiter.push(v);
-            }
+            visiter.push(v);
           }
         }
       }
@@ -49,10 +46,8 @@ function parcoursProfondeur(G, d, pileSommets) {
 }
 
 //  Algorithme de coloriage glouton
-
 function coloriageGlouton(graph) {
   const sommets = Object.keys(graph);
-
   const resultat = {};
 
   for (const sommet of sommets) {
@@ -63,12 +58,10 @@ function coloriageGlouton(graph) {
         attribue.add(resultat[voisin]);
       }
     }
-
     let coleur = 1;
     while (attribue.has(coleur)) {
       coleur++;
     }
-
     resultat[sommet] = coleur;
   }
 
@@ -77,7 +70,6 @@ function coloriageGlouton(graph) {
 
 
 // Algorithme de Welsh-Powell pour colorier un graphe
-
 function welshPowell(graph) {
   const nomSommets = Object.keys(graph);
   const sommetColore = {};
@@ -87,21 +79,13 @@ function welshPowell(graph) {
     sommetColore[sommet] = false;
     degreeSommet[sommet] = Object.keys(graph[sommet]).length;
   }
-
   let compteur = 0;
-
   const resultatColoriage = {};
 
   function colorer(sommet) {
     compteur++;
     let grande = "";
     let degreeTemp = 0;
-
-    // if (compteur === 1) {
-    //   for (const sommet of nomSommets) {
-    //     degreeSommet[sommet] = Object.keys(graph[sommet]).length;
-    //   }
-    // }
 
     for (const sommet of nomSommets) {
       if (!sommetColore[sommet]) {
@@ -119,7 +103,6 @@ function welshPowell(graph) {
         if (resultatColoriage[voisin]) {
           voisinsColores.push(resultatColoriage[voisin]);
         }
-        
       }
     }
 
@@ -129,11 +112,9 @@ function welshPowell(graph) {
 
     resultatColoriage[grande] = coleur;
     sommetColore[grande] = true;
-
-    if (Object.values(sommetColore).every((i) => i)) {
+    if (Object.values(sommetColore).everyZ((i) => i)) {
       return resultatColoriage;
     }
-
     return colorer(sommet);
   }
 
@@ -147,7 +128,6 @@ function prim(graph, debutSommet) {
   var visiter = [];
   visiter.push(debutSommet);
   var arbre = [];
-  var aretes = [];
 
   while (visiter.length !== Object.keys(graph).length) {
     var minPoids = Infinity;
@@ -169,84 +149,68 @@ function prim(graph, debutSommet) {
 
     visiter.push(minSommet);
     arbre.push(minArete);
-    aretes.push(minArete);
   }
 
-  return aretes;
+  return arbre;
 }
 
 // Algorithme de Kruskal
-function TrouverUnion() {
-  this.parent = {};
+function trouver(parent, x) {
+  if (parent[x] === undefined) {
+    parent[x] = x;
+  } else if (parent[x] !== x) {
+    parent[x] = trouver(parent, parent[x]);
+  }
+  return parent[x];
+}
 
-  this.trouver = function (x) {
-    if (this.parent[x] === undefined) {
-      this.parent[x] = x;
-    } else if (this.parent[x] !== x) {
-      this.parent[x] = this.trouver(this.parent[x]);
-    }
-    return this.parent[x];
-  };
-
-  this.union = function (x, y) {
-    var racineX = this.trouver(x);
-    var racineY = this.trouver(y);
-    if (racineX !== racineY) {
-      this.parent[racineX] = racineY;
-    }
-  };
+function union(parent, x, y) {
+  var racineX = trouver(parent, x);
+  var racineY = trouver(parent, y);
+  if (racineX !== racineY) {
+    parent[racineX] = racineY;
+  }
 }
 
 function kruskal(graph) {
   var aretes = [];
   var result = [];
-  var tu = new TrouverUnion();
+  var parent = {};
 
-  // Créer une liste de toutes les arêtes du graphe
   for (var u in graph) {
-    if (graph.hasOwnProperty(u)) {
-      for (var v in graph[u]) {
-        if (graph[u].hasOwnProperty(v)) {
-          aretes.push({
-            u: u,
-            v: v,
-            poids: graph[u][v],
-          });
-        }
-      }
+    for (var v in graph[u]) {
+      aretes.push({
+        u: u,
+        v: v,
+        poids: graph[u][v],
+      });
     }
   }
 
-  // Trier les arêtes par ordre croissant de poids
   aretes.sort(function (a, b) {
     return a.poids - b.poids;
   });
 
-  // Itérer sur les arêtes triées
   for (var i = 0; i < aretes.length; i++) {
     var arete = aretes[i];
     var u = arete.u;
     var v = arete.v;
 
-    // Vérifier si l'ajout de l'arête crée un cycle
-    if (tu.trouver(u) !== tu.trouver(v)) {
-      // Ajouter l'arête à l'arbre couvrant minimal
+    if (trouver(parent, u) !== trouver(parent, v)) {
       result.push(arete);
-      // Effectuer l'opération d'union pour fusionner les ensembles
-      tu.union(u, v);
+      union(parent, u, v);
     }
   }
 
   return result;
 }
 
+// Algorithme de Bellman-Ford
 function bellmanFord(graph, debutSommet) {
   let sommets = Object.keys(graph).length;
-
   let distances = {};
   let predecesseurs = {};
 
-  // Initialise les distances et les prédécesseurs
   for (let sommet in graph) {
     distances[sommet] = Number.MAX_VALUE;
     predecesseurs[sommet] = null;
@@ -268,7 +232,6 @@ function bellmanFord(graph, debutSommet) {
     }
   }
 
-  // Vérifie les cycles de poids négatifs
   for (let sommet in graph) {
     for (let voisin in graph[sommet]) {
       let poids = graph[sommet][voisin];
@@ -293,7 +256,6 @@ function dijkstra(graph, source) {
   const distances = {};
   const predecesseurs = {};
 
-  // Initialization
   sommets.forEach((sommet) => {
     distances[sommet] = Infinity;
     predecesseurs[sommet] = null;
@@ -356,7 +318,6 @@ function processGraph() {
   }
 
   var graph;
-
   try {
     graph = JSON.parse(graphText);
     console.log(graph);
@@ -381,7 +342,8 @@ function processGraph() {
       "Résultat du parcours en largeur :",
       result
     );
-  } else if (selectedAlgorithm === "parcoursProfondeur") {
+  } 
+  else if (selectedAlgorithm === "parcoursProfondeur") {
     var debutSommet = prompt(
       "Veuillez saisir le sommet de départ pour le parcours en profondeur :"
     );
@@ -392,21 +354,24 @@ function processGraph() {
       "Résultat du parcours en profondeur :",
       pileSommets
     );
-  } else if (selectedAlgorithm === "coloriageGlouton") {
+  } 
+  else if (selectedAlgorithm === "coloriageGlouton") {
     const resultatColoriage = coloriageGlouton(graph);
     createResultList(
       resultContainer,
       "Le résultat de coloriage Glouton :",
       Object.entries(resultatColoriage).map((entry) => `${entry[0]} - ${entry[1]}`)
     );
-  } else if (selectedAlgorithm === "welshPowell") {
+  } 
+  else if (selectedAlgorithm === "welshPowell") {
     const resultatColoriage = welshPowell(graph);
     createResultList(
       resultContainer,
       "Le résultat de coloriage avec Welsh-Powell :",
       Object.entries(resultatColoriage).map((entry) => `${entry[0]} - ${entry[1]}`)
     );
-  } else if (selectedAlgorithm === "prim") {
+  } 
+  else if (selectedAlgorithm === "prim") {
     var debutSommet = prompt(
       "Veuillez saisir le sommet de départ pour l'algorithme de Prim :"
     );
@@ -418,14 +383,16 @@ function processGraph() {
         (arete) => `${arete.de} -> ${arete.vers} (Poids : ${arete.poids})`
       )
     );
-  } else if (selectedAlgorithm === "kruskal") {
+  } 
+  else if (selectedAlgorithm === "kruskal") {
     var result = kruskal(graph);
     createResultList(
       resultContainer,
       "Arbre couvrant minimal trouvé avec l'algorithme de Kruskal :",
       result.map((arete) => `${arete.u} -> ${arete.v} (Poids : ${arete.poids})`)
     );
-  } else if (selectedAlgorithm === "bellmanFord") {
+  } 
+  else if (selectedAlgorithm === "bellmanFord") {
     var debutSommet = prompt(
       "Veuillez saisir le sommet de départ pour l'algorithme de Bellman-Ford :"
     );
