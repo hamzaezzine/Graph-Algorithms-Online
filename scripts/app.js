@@ -32,12 +32,6 @@ function parcoursProfondeur(G, d, pileSommets) {
       parcoursProfondeur(G, voisin, pileSommets);
     }
   }
-  // for (var i = 0; i < voisins.length; i++) {
-  //   let v = voisins[i];
-  //   if (!pileSommets.includes(v)) {
-  //     parcoursProfondeur(G, v, pileSommets);
-  //   }
-  // }
 }
 
 //  Algorithme de coloriage glouton
