@@ -67,11 +67,9 @@ function welshPowell(graph) {
     sommetColore[sommet] = false;
     degreeSommet[sommet] = Object.keys(graph[sommet]).length;
   }
-  let compteur = 0;
   const resultatColoriage = {};
 
   function colorer(sommet) {
-    compteur++;
     let grande = "";
     let degreeTemp = 0;
 
