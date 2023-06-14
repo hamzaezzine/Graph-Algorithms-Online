@@ -26,6 +26,7 @@ function parcoursLargeur(G, d) {
 function parcoursProfondeur(G, d, pileSommets) {
   pileSommets.push(d);
   var voisins = G[d];
+  console.log(voisins);
   for (var i = 0; i < voisins.length; i++) {
     var v = voisins[i];
     if (!pileSommets.includes(v)) {
@@ -100,7 +101,7 @@ function welshPowell(graph) {
 
     resultatColoriage[grande] = coleur;
     sommetColore[grande] = true;
-    if (Object.values(sommetColore).everyZ((i) => i)) {
+    if (Object.values(sommetColore).every((i) => i)) {
       return resultatColoriage;
     }
     return colorer(sommet);
@@ -136,7 +137,7 @@ function prim(graph, debutSommet) {
     arbre.push(minArete);
   }
 
-  return aretes;
+  return arbre;
 }
 
 // Algorithme de Kruskal
@@ -181,9 +182,7 @@ function kruskal(graph) {
     var u = arete.u;
     var v = arete.v;
 
-    // Vérifier si l'ajout de l'arête crée un cycle
-    if (tu.trouver(u) !== tu.trouver(v)) {
-      // Ajouter l'arête à l'arbre couvrant minimal
+    if (trouver(parent,u) !== trouver(parent,v)) {
       result.push(arete);
       union(parent, u, v);
     }
@@ -191,7 +190,6 @@ function kruskal(graph) {
   return result;
 }
 
-// Algorithme de Bellman-Ford
 // Algorithme de Bellman-Ford
 function bellmanFord(graph, debutSommet) {
   let sommets = Object.keys(graph).length;
