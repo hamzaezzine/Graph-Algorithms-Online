@@ -27,13 +27,17 @@ function parcoursProfondeur(G, d, pileSommets) {
   pileSommets.push(d);
 
   let voisins = G[d];
-
-  for (var i = 0; i < voisins.length; i++) {
-    let v = voisins[i];
-    if (!pileSommets.includes(v)) {
-      parcoursProfondeur(G, v, pileSommets);
+  for (let voisin in G[d]) {
+    if (!pileSommets.includes(voisin)) {
+      parcoursProfondeur(G, voisin, pileSommets);
     }
   }
+  // for (var i = 0; i < voisins.length; i++) {
+  //   let v = voisins[i];
+  //   if (!pileSommets.includes(v)) {
+  //     parcoursProfondeur(G, v, pileSommets);
+  //   }
+  // }
 }
 
 //  Algorithme de coloriage glouton
