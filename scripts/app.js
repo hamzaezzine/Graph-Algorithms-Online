@@ -136,7 +136,7 @@ function prim(graph, debutSommet) {
     arbre.push(minArete);
   }
 
-  return aretes;
+  return arbre;
 }
 
 // Algorithme de Kruskal
@@ -167,7 +167,7 @@ function kruskal(graph) {
       aretes.push({
         u: u,
         v: v,
-        poids: graph[u][v],
+        poids: graph[u][v]
       });
     }
   }
