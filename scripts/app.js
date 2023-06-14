@@ -25,9 +25,9 @@ function parcoursLargeur(G, d) {
 // Parcours en profondeur:
 function parcoursProfondeur(G, d, pileSommets) {
   pileSommets.push(d);
-  var voisins = G[d];
+  let voisins = G[d];
   for (var i = 0; i < voisins.length; i++) {
-    var v = voisins[i];
+    let v = voisins[i];
     if (!pileSommets.includes(v)) {
       parcoursProfondeur(G, v, pileSommets);
     }
@@ -100,7 +100,7 @@ function welshPowell(graph) {
 
     resultatColoriage[grande] = coleur;
     sommetColore[grande] = true;
-    if (Object.values(sommetColore).everyZ((i) => i)) {
+    if (Object.values(sommetColore).every((i) => i)) {
       return resultatColoriage;
     }
     return colorer(sommet);
