@@ -25,7 +25,9 @@ function parcoursLargeur(G, d) {
 // Parcours en profondeur:
 function parcoursProfondeur(G, d, pileSommets) {
   pileSommets.push(d);
+
   let voisins = G[d];
+
   for (var i = 0; i < voisins.length; i++) {
     let v = voisins[i];
     if (!pileSommets.includes(v)) {
@@ -181,9 +183,7 @@ function kruskal(graph) {
     var u = arete.u;
     var v = arete.v;
 
-    // Vérifier si l'ajout de l'arête crée un cycle
-    if (tu.trouver(u) !== tu.trouver(v)) {
-      // Ajouter l'arête à l'arbre couvrant minimal
+    if (trouver(parent,u) !== trouver(parent,v)) {
       result.push(arete);
       union(parent, u, v);
     }
@@ -191,7 +191,6 @@ function kruskal(graph) {
   return result;
 }
 
-// Algorithme de Bellman-Ford
 // Algorithme de Bellman-Ford
 function bellmanFord(graph, debutSommet) {
   let sommets = Object.keys(graph).length;
