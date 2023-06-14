@@ -68,7 +68,6 @@ function coloriageGlouton(graph) {
   return resultat;
 }
 
-
 // Algorithme de Welsh-Powell pour colorier un graphe
 function welshPowell(graph) {
   const nomSommets = Object.keys(graph);
@@ -121,8 +120,6 @@ function welshPowell(graph) {
   return colorer(nomSommets[0]);
 }
 
-
-
 // Algorithme de Prim
 function prim(graph, debutSommet) {
   var visiter = [];
@@ -146,12 +143,11 @@ function prim(graph, debutSommet) {
         }
       }
     }
-
     visiter.push(minSommet);
     arbre.push(minArete);
   }
 
-  return arbre;
+  return aretes;
 }
 
 // Algorithme de Kruskal
@@ -196,15 +192,17 @@ function kruskal(graph) {
     var u = arete.u;
     var v = arete.v;
 
-    if (trouver(parent, u) !== trouver(parent, v)) {
+    // Vérifier si l'ajout de l'arête crée un cycle
+    if (tu.trouver(u) !== tu.trouver(v)) {
+      // Ajouter l'arête à l'arbre couvrant minimal
       result.push(arete);
       union(parent, u, v);
     }
   }
-
   return result;
 }
 
+// Algorithme de Bellman-Ford
 // Algorithme de Bellman-Ford
 function bellmanFord(graph, debutSommet) {
   let sommets = Object.keys(graph).length;
@@ -244,13 +242,13 @@ function bellmanFord(graph, debutSommet) {
       }
     }
   }
-
   return {
     distances: distances,
     predecesseurs: predecesseurs,
   };
 }
 
+// Algorithme de Dijkstra
 function dijkstra(graph, source) {
   const sommets = Object.keys(graph);
   const distances = {};
@@ -360,7 +358,9 @@ function processGraph() {
     createResultList(
       resultContainer,
       "Le résultat de coloriage Glouton :",
-      Object.entries(resultatColoriage).map((entry) => `${entry[0]} - ${entry[1]}`)
+      Object.entries(resultatColoriage).map(
+        (entry) => `${entry[0]} - ${entry[1]}`
+      )
     );
   } 
   else if (selectedAlgorithm === "welshPowell") {
@@ -368,7 +368,9 @@ function processGraph() {
     createResultList(
       resultContainer,
       "Le résultat de coloriage avec Welsh-Powell :",
-      Object.entries(resultatColoriage).map((entry) => `${entry[0]} - ${entry[1]}`)
+      Object.entries(resultatColoriage).map(
+        (entry) => `${entry[0]} - ${entry[1]}`
+      )
     );
   } 
   else if (selectedAlgorithm === "prim") {
