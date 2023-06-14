@@ -12,16 +12,6 @@ function parcoursLargeur(G, d) {
     var voisins = G[s];
 
     if (voisins) {
-      if (Array.isArray(voisins)) {
-        for (var i = 0; i < voisins.length; i++) {
-          var v = voisins[i];
-
-          if (!fileSommets.includes(v) && !visiter.includes(v)) {
-            visiter.push(v);
-          }
-        }
-      } 
-      else {
         for (var v in voisins) {
           if (!fileSommets.includes(v) && !visiter.includes(v)) {
             visiter.push(v);
@@ -29,7 +19,6 @@ function parcoursLargeur(G, d) {
         }
       }
     }
-  }
   return fileSommets;
 }
 
