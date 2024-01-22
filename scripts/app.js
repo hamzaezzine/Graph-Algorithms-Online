@@ -245,7 +245,7 @@ function dijkstra(graph, source) {
   distances[source] = 0;
 
   const nonviste = new Set(sommets);
-
+    
   while (nonviste.size > 0) {
     let minDistanceSommet = null;
     for (let sommet of nonviste) {
